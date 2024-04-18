@@ -6,24 +6,23 @@ import numpy as np
 
 
 p = pyaudio.PyAudio()
-dtype = p.get_format_from_width(2)
-stream = p.open(format=dtype,
+stream = p.open(format=pyaudio.paFloat32,
                 channels=1 if sys.platform == 'darwin' else 2,
                 rate=SAMPLE_RATE,
                 input=True,
                 output=True,
-                frames_per_buffer=BUFFER_SIZE)
+                frames_per_buffer=CHUNK)
 
 
 print('* recording')
 
 while True:
-    buffer = stream.read(BUFFER_SIZE)
+    buffer = stream.read(CHUNK)
     # audio processing here
-    array = np.frombuffer(buffer, dtype='int16')
-    array = harmonizer(array)
+    arr = np.frombuffer(buffer, dtype=np.float32)
+    arr = harmonizer(arr)
 
-    buffer = array.tobytes()
+    buffer = arr.tobytes()
     stream.write(buffer)
 
 print('* done')

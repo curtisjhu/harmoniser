@@ -6,7 +6,7 @@ from .constants import *
 def harmonizer(chunk):
 	# read the keyboard input
 	# pitch shift into those midi
-	chunk = librosa.effects.pitch_shift(chunk, sr=SAMPLE_RATE, n_steps=3)
+	librosa.effects.pitch_shift(chunk, sr=SAMPLE_RATE, n_steps=3)
 	return chunk
 	
 
