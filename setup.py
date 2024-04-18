@@ -36,7 +36,7 @@ setup(
     classifiers=[
         'Development Status :: 1 - Beta',
         'Intended Audience :: All',
-        'Programming Language :: Python :: 3.7+',
+        'Programming Language :: Python :: 3.9+',
     ],
     keywords='music harmonizer harmonizing jacob collier voice box midi sound chords'
 )

@@ -1,33 +1,30 @@
 import sys
 import pyaudio
-
-CHUNK = 1024 # 2^10
-RATE = 44100
-
-# Live?
-# audio separation
-# https://pytorch.org/audio/main/tutorials/hybrid_demucs_tutorial.html
-
+from .effects import *
+from .constants import *
+import numpy as np
 
 
 p = pyaudio.PyAudio()
-stream = p.open(format=p.get_format_from_width(2),
+dtype = p.get_format_from_width(2)
+stream = p.open(format=dtype,
                 channels=1 if sys.platform == 'darwin' else 2,
-                rate=RATE,
+                rate=SAMPLE_RATE,
                 input=True,
                 output=True,
-                frames_per_buffer=CHUNK)
+                frames_per_buffer=BUFFER_SIZE)
 
 
 print('* recording')
 
 while True:
-	chunk = stream.read(CHUNK)
+    buffer = stream.read(BUFFER_SIZE)
+    # audio processing here
+    array = np.frombuffer(buffer, dtype='int16')
+    array = harmonizer(array)
 
-	# audio processing here
-
-
-	stream.write(chunk)
+    buffer = array.tobytes()
+    stream.write(buffer)
 
 print('* done')
 
