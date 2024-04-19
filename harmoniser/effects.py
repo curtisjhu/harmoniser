@@ -3,10 +3,10 @@
 import librosa
 from .constants import *
 
-def harmonizer(chunk):
+def harmoniser(chunk):
 	# read the keyboard input
 	# pitch shift into those midi
-	librosa.effects.pitch_shift(chunk, sr=SAMPLE_RATE, n_steps=3)
+	chunk = librosa.effects.pitch_shift(chunk, sr=SAMPLE_RATE, n_steps=4)
 	return chunk
 	
 
