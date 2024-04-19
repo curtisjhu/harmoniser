@@ -24,15 +24,16 @@ print('* recording')
 # Input overflow: some of the data was lost in between reads due to the latency
 
 while True:
-    buffer = stream.read(CHUNK, exception_on_overflow=False)
+    in_buffer = stream.read(CHUNK, exception_on_overflow=False)
     # audio processing here
-    arr = np.frombuffer(buffer, dtype=np.float32)
+    arr = np.frombuffer(in_buffer, dtype=np.float32)
 
-    # freq, detection, probabilities = librosa.pyin(arr, fmin=librosa.note_to_hz('E2'), fmax=librosa.note_to_hz('A5'), sr=SAMPLE_RATE, frame_length=CHUNK)
-    harmonic, percussive = librosa.effects.hpss(arr)
+    arr = librosa.stft(arr)
 
-    buffer = percussive.tobytes()
-    stream.write(buffer)
+    arr = librosa.istft(arr)
+
+    out_buffer = arr.tobytes()
+    stream.write(out_buffer)
 
 print('* done')
 
