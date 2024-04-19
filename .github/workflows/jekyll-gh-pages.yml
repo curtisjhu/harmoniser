@@ -33,10 +33,9 @@ jobs:
       - name: Setup ruby
         uses: ruby/setup-ruby@v1
         with:
+          source: ./docs
           ruby-version: '3.3' # Not needed with a .ruby-version file
           bundler-cache: true # runs 'bundle install' and caches installed gems automatically
-      - name: Install Gems
-        run: cd docs & bundle install
       - name: Build with Jekyll
         uses: actions/jekyll-build-pages@v1
         with:
