@@ -23,17 +23,21 @@ print('* recording')
 # Seems like latency is really an issue here
 # Input overflow: some of the data was lost in between reads due to the latency
 
+t = 0
 while True:
-    in_buffer = stream.read(CHUNK, exception_on_overflow=False)
-    # audio processing here
-    arr = np.frombuffer(in_buffer, dtype=np.float32)
+    in_buffer = stream.read(CHUNK, exception_on_overflow=False) # as bytes
 
-    arr = librosa.stft(arr)
+    buffer = np.frombuffer(in_buffer, dtype=np.float32) # as array of floats
 
-    arr = librosa.istft(arr)
+    # AUDIO PROCESSING HERE 
+    # buffer = harmoniser(buffer)
+    # buffer = frog(buffer)
+    # AUDIO PROCESSING ENDS HERE 
 
-    out_buffer = arr.tobytes()
+    out_buffer = buffer.tobytes()
     stream.write(out_buffer)
+
+    t += 0.001
 
 print('* done')
 

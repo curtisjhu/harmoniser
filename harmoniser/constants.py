@@ -1,4 +1,4 @@
-CHUNK = 1024 # 2^10
+CHUNK = 2048 # 2^10
 SAMPLE_RATE = 50000
 
 key_to_note = {
