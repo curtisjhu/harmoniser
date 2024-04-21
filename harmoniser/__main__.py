@@ -41,11 +41,11 @@ while True:
 
     # buffer = major_chord(buffer)
     # buffer = frog(buffer)
-    # buffer = low_voice(buffer)
+    buffer = low_voice(buffer)
     # buffer = high_voice(buffer)
     # buffer = darth_vader(buffer)
     # buffer = low_pass(buffer)
-    buffer = low_pass(buffer)
+    # buffer = low_pass(buffer)
 
     # AUDIO PROCESSING ENDS HERE 
 
